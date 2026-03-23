@@ -1,0 +1,18 @@
+# 1 bad practice
+FROM python:latest
+
+# 2 bad practice
+ENV APP_ENV=production
+ENV DB_PASSWORD=super_secret_password
+
+# 3 bad practice
+RUN apt-get update
+RUN apt-get install -y curl vim
+RUN pip install --no-cache-dir flask
+
+# 4 bad practice
+COPY . .
+
+# 5 bad practice
+EXPOSE 5000
+CMD ["python", "-m", "http.server", "5000"]
