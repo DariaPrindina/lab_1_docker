@@ -1,0 +1,45 @@
+services:
+  web:
+    # 1 bad practice
+    image: python:latest
+    container_name: web-container
+
+    # 2 bad practice
+    privileged: true
+
+    # 3 bad practice
+    environment:
+      APP_ENV: production
+      DB_PASSWORD: super_secret_password
+    command: sh -c "python -m http.server 8080"
+    ports:
+      - "8080:8080"
+
+    # 5 bad practice
+    volumes:
+      - ./:/app
+    working_dir: /app
+    networks:
+      - common
+
+  db:
+    # 1 bad practice
+    image: postgres:latest
+    container_name: db-container
+    restart: always
+
+    # 3 bad practice
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: app_db
+
+    # 4 bad practice
+    ports:
+      - "5432:5432"
+    networks:
+      - common
+
+networks:
+  common:
+    driver: bridge
